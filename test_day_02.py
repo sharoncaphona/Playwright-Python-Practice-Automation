@@ -1,14 +1,4 @@
-from playwright.sync_api import sync_playwright
-
-def test_day_02():
-    with sync_playwright() as p:
-        # Open the chromium browser
-        # browser = p.chromium.launch(headless=False)
-        browser = p.chromium.launch(headless=True)
-
-        # Open a new page
-        page = browser.new_page()
-
+def test_day_02(page):
         # Navigate to the example.com page
         page.goto("https://www.saucedemo.com/")
 
@@ -26,6 +16,3 @@ def test_day_02():
         # page.get_by_role("textbox", name="Username").fill("standard_user")
         # page.get_by_role("textbox", name="Password").fill("secret_sauce")
         # page.get_by_role("button", name="Login").click()
-        
-        # Close the browser
-        browser.close()

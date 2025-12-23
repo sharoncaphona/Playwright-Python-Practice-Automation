@@ -1,6 +1,5 @@
 import pytest
-
-from playwright.sync_api import sync_playwright, expect
+from playwright.sync_api import expect
 
 #use for the smoke testing suites
 # @pytest.mark.smoke
@@ -8,14 +7,7 @@ from playwright.sync_api import sync_playwright, expect
 #use for the regression testing suites
 @pytest.mark.regression
 
-def test_user_login_action_logout():
-    with sync_playwright() as p:
-        # Open browser
-        browser = p.chromium.launch(headless=False)
-        # browser = p.chromium.launch(headless=True)
-        # Open a new page
-        page = browser.new_page()
-
+def test_user_login_action_logout(page):
         # Navigate to the example.com page
         page.goto("https://www.saucedemo.com/")
 
@@ -69,6 +61,3 @@ def test_user_login_action_logout():
         page.click("#react-burger-menu-btn")
         page.click("#logout_sidebar_link")
         expect(page).to_have_url("https://www.saucedemo.com/")
-
-        #Close the browser
-        browser.close()

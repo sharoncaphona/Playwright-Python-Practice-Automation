@@ -1,14 +1,4 @@
-from playwright.sync_api import sync_playwright
-
-def test_day_03():
-    with sync_playwright() as p:
-        # Open the chromium browser
-        # browser = p.chromium.launch(headless=False)
-        browser = p.chromium.launch(headless=True)
-
-        # Open a new page
-        page = browser.new_page()
-
+def test_day_03(page):
         # Navigate to the example.com page
         page.goto("https://www.saucedemo.com/")
 
@@ -23,6 +13,3 @@ def test_day_03():
 
         page.click("#add-to-cart-sauce-labs-backpack")
         assert "1" in page.text_content(".shopping_cart_badge")
-
-        # Close the browser
-        browser.close()
