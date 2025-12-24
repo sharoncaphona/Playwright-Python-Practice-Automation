@@ -5,7 +5,8 @@ def test_day_02(page):
         #Use id for this
         page.locator("#user-name").fill("standard_user")
         page.locator("#password").fill("secret_sauce")
-        page.locator("#login-button").click
+        page.locator("#login-button").click()
+        # page.locator("#login-btn").click()
 
         # #Use class for this
         # page.locator(".input_error").nth(0).fill("standard_user")
