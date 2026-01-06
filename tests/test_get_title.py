@@ -3,8 +3,8 @@ from playwright.sync_api import sync_playwright
 
 def test_get_title():
     with sync_playwright() as p:
-        # Open the browser in the headless mode
-        browser = p.chromium.launch(headless=False)
+        # Open the webkit browser in the headless mode
+        browser = p.webkit.launch(headless=False)
 
         # Create a new browser context
         context = browser.new_context()
