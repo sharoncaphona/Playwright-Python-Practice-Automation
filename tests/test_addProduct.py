@@ -3,7 +3,7 @@ from playwright.sync_api import sync_playwright
 def test_add_product():
     with sync_playwright() as p:
         #Open the browser in the headless mode
-        browser = p.chromium.launch(channel="msedge", headless=False, slow_mo=500)
+        browser = p.chromium.launch(channel="msedge", headless=True)
         page = browser.new_page()
         page.goto("https://saucedemo.com/")
         page.fill('input[id="user-name"]', 'standard_user')
