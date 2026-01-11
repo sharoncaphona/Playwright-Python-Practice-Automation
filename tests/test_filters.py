@@ -1,48 +1,40 @@
-from playwright.sync_api import sync_playwright
+#tests/test_filters.py
 
-def test_filters():
-    with sync_playwright() as p:
-        # Open the micerosoft edge browser in the headless mode
-        browser = p.chromium.launch(channel="msedge", headless=True)
-        page = browser.new_page()
-        page.goto("https://saucedemo.com/")
-        page.fill('input[id="user-name"]', 'standard_user')
-        page.fill('input[id="password"]', 'secret_sauce')
-        page.click('input[id="login-button"]')
-        
-        #Check that login was successful
-        assert "Products" in page.text_content(".title")
-        assert page.url == "https://www.saucedemo.com/inventory.html"
+from pages.home_page import HomePage
+from pages.login_page import LoginPage
 
-        # Apply a filter of Name (A to Z)
-        page.select_option('select[class = product_sort_container]', 'az')
+def test_filter_a_to_z(page):
+    login = LoginPage(page)
+    login.open() 
+    login.login("standard_user", "secret_sauce")
+    home = HomePage(page)
+    page.select_option(home.filter, home.a_to_z_option)
+    assert page.locator('.inventory_item_name').first.text_content() == 'Sauce Labs Backpack'
+    assert page.locator('.inventory_item_name').last.text_content() == 'Test.allTheThings() T-Shirt (Red)'
 
-        # Verify that the filter was applied correctly
-        assert page.locator('.inventory_item_name').first.text_content() == 'Sauce Labs Backpack'
-        assert page.locator('.inventory_item_name').last.text_content() == 'Test.allTheThings() T-Shirt (Red)'
+def test_filter_z_to_a(page):
+    login = LoginPage(page)
+    login.open() 
+    login.login("standard_user", "secret_sauce")
+    home = HomePage(page)
+    page.select_option(home.filter, home.z_to_a_option)
+    assert page.locator('.inventory_item_name').first.text_content() == 'Test.allTheThings() T-Shirt (Red)'
+    assert page.locator('.inventory_item_name').last.text_content() == 'Sauce Labs Backpack'
 
+def test_filter_low_to_high(page):
+    login = LoginPage(page)
+    login.open() 
+    login.login("standard_user", "secret_sauce")
+    home = HomePage(page)
+    page.select_option(home.filter, home.low_to_high_option)
+    assert page.locator('.inventory_item_price').first.text_content() == '$7.99'
+    assert page.locator('.inventory_item_price').last.text_content() == '$49.99'
 
-        # Apply a filter of Name (Z to A)
-        page.select_option('select[class = product_sort_container]', 'za')
-
-        # Verify that the filter was applied correctly
-        assert page.locator('.inventory_item_name').first.text_content() == 'Test.allTheThings() T-Shirt (Red)'
-        assert page.locator('.inventory_item_name').last.text_content() == 'Sauce Labs Backpack'
-
-
-        # Apply a filter of low to high price
-        page.select_option('select[class = product_sort_container]', 'lohi')
-
-        # Verify that the filter was applied correctly
-        assert page.locator('.inventory_item_price').first.text_content() == '$7.99'
-        assert page.locator('.inventory_item_price').last.text_content() == '$49.99'
-
-
-        # Apply a filter of high to low price
-        page.select_option('select[class = product_sort_container]', 'hilo')
-
-        # Verify that the filter was applied correctly
-        assert page.locator('.inventory_item_price').first.text_content() == '$49.99'
-        assert page.locator('.inventory_item_price').last.text_content() == '$7.99'
-
-        browser.close()
+def test_filter_high_to_low(page):
+    login = LoginPage(page)
+    login.open() 
+    login.login("standard_user", "secret_sauce")
+    home = HomePage(page)
+    page.select_option(home.filter, home.high_to_low_option)
+    assert page.locator('.inventory_item_price').first.text_content() == '$49.99'
+    assert page.locator('.inventory_item_price').last.text_content() == '$7.99'
