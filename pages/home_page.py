@@ -9,3 +9,5 @@ class HomePage:
         self.z_to_a_option = ('select[class = product_sort_container]', 'za')
         self.low_to_high_option = ('select[class = product_sort_container]', 'lohi')
         self.high_to_low_option = ('select[class = product_sort_container]', 'hilo')
+        self.add_to_cart_button = 'button[id = "add-to-cart-{}"]'
+        self.remove_from_cart_button = 'button[id = "remove-{}"]'
