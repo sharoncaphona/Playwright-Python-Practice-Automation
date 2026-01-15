@@ -1,23 +1,24 @@
 #tests/test_login.py
 
 from pages.login_page import LoginPage
+from playwright.sync_api import expect
 
 def test_valid_login(page):
     login = LoginPage(page)
     login.open() 
     login.login("standard_user", "secret_sauce")
-    assert page.url == "https://www.saucedemo.com/inventory.html"
+    expect(page).to_have_url("https://www.saucedemo.com/inventory.html")
 
 def test_invalid_login(page):
     login = LoginPage(page)
     login.open() 
     login.login("invalid_user", "invalid_password")
-    error_message = page.text_content("h3[data-test='error']")
-    assert error_message == "Epic sadface: Username and password do not match any user in this service"
+    error = page.locator("h3[data-test='error']")
+    expect(error).to_have_text("Epic sadface: Username and password do not match any user in this service")
 
 def test_logout(page):
     login = LoginPage(page)
     login.open() 
     login.login("standard_user", "secret_sauce")
     login.logout()
-    assert page.url == "https://www.saucedemo.com/"
+    expect(page).to_have_url("https://www.saucedemo.com/")
