@@ -1,6 +1,5 @@
 from playwright.sync_api import sync_playwright
 
-
 def test_get_title():
     with sync_playwright() as p:
         # Open the webkit browser in the headless mode

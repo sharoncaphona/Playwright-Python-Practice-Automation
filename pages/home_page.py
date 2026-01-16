@@ -11,3 +11,4 @@ class HomePage:
         self.high_to_low_option = ('select[class = product_sort_container]', 'hilo')
         self.add_to_cart_button = 'button[id = "add-to-cart-{}"]'
         self.remove_from_cart_button = 'button[id = "remove-{}"]'
+        self.shopping_cart = ".shopping_cart_link"
