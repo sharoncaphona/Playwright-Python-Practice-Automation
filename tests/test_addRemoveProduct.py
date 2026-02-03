@@ -26,6 +26,7 @@ def test_remove_product(page):
     login.open() 
     login.login("standard_user", "secret_sauce")
     home = HomePage(page)
+    
     #Call the add product test to ensure products are in the cart before removing
     test_add_product(page)
 

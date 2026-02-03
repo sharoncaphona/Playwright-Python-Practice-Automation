@@ -2,7 +2,7 @@ from playwright.sync_api import sync_playwright
 
 def test_popup_alert():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False, slow_mo=500)
+        browser = p.chromium.launch(headless=True, slow_mo=500)
         context = browser.new_context()
         page = context.new_page()
         page.goto("https://practice-automation.com/popups/")
@@ -11,7 +11,7 @@ def test_popup_alert():
 
 def test_popup_confirm_ok():
      with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False, slow_mo=500)
+        browser = p.chromium.launch(headless=True, slow_mo=500)
         context = browser.new_context()
         page = context.new_page()
         page.goto("https://practice-automation.com/popups/")
@@ -20,7 +20,7 @@ def test_popup_confirm_ok():
 
 def test_popup_confirm_cancel():
      with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False, slow_mo=500)
+        browser = p.chromium.launch(headless=True, slow_mo=500)
         context = browser.new_context()
         page = context.new_page()
         page.goto("https://practice-automation.com/popups/")
@@ -29,7 +29,7 @@ def test_popup_confirm_cancel():
 
 def test_popup_prompt():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False, slow_mo=500)
+        browser = p.chromium.launch(headless=True, slow_mo=500)
         context = browser.new_context()
         page = context.new_page()
         page.goto("https://practice-automation.com/popups/")
