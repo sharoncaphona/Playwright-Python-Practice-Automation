@@ -1,11 +1,15 @@
+import json
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from playwright.sync_api import expect
 
+with open("utils/data.json") as f:
+    users = json.load(f)
+
 def test_add_product(page):
     login = LoginPage(page)
     login.open() 
-    login.login("standard_user", "secret_sauce")
+    login.login(users["valid_user"]["username"], users["valid_user"]["password"])
     home = HomePage(page)
     cart_badge = page.locator(home.product_cart)
     page.click(home.add_to_cart_button.format("sauce-labs-backpack"))
